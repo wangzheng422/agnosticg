@@ -1,8 +1,0 @@
-resources:
-- catalogsource.yaml
-- operatorgroup.yaml
-- subscription.yaml
-- configmap-rook-ceph-operator-config.yaml
-- storagecluster.yaml
-- storagesystem.yaml
-- toolbox.yaml
