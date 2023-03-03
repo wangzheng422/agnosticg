@@ -9,6 +9,6 @@ metadata:
 spec:
   sourceType: grpc
   image: >-
-    {{ $.Values.odf.catalogSource.image }}:{{ $.Values.odf.catalogSource.tag }}
+    {{ $.Values.odf.catalogSource.image }}:{{ $.Values.odf.catalogSource.imageTag }}
   displayName: "Red Hat OpenShift Data Foundations Snapshot"
   publisher: "Red Hat AgnosticD"
