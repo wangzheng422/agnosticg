@@ -1,0 +1,4 @@
+#Sonarqube Chart Values
+
+sonarqube:
+  image: docker.io/kenmoini/openshift-sonarqube

@@ -1,0 +1,123 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: sonarqube
+  name: sonarqube
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: sonarqube
+      deploymentconfig: sonarqube
+  strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: sonarqube
+        deploymentconfig: sonarqube
+    spec:
+      containers:
+      - env:
+        - name: JDBC_URL
+          value: jdbc:postgresql://sonardb:5432/sonar
+        - name: JDBC_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: sonardb
+        - name: JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: sonardb
+        - name: FORCE_AUTHENTICATION
+          value: "false"
+        - name: PROXY_HOST
+        - name: PROXY_PORT
+        - name: PROXY_USER
+        - name: PROXY_PASSWORD
+        - name: LDAP_URL
+          value: ldaps://idm.example.com:636
+        - name: LDAP_REALM
+        - name: LDAP_AUTHENTICATION
+          value: simple
+        - name: LDAP_USER_BASEDN
+          value: cn=accounts,dc=example,dc=com
+        - name: LDAP_USER_REAL_NAME_ATTR
+          value: displayname
+        - name: LDAP_USER_EMAIL_ATTR
+          value: mail
+        - name: LDAP_USER_REQUEST
+          value: (&(objectClass=inetOrgPerson)(uid={login}))
+        - name: LDAP_GROUP_BASEDN
+          value: cn=groups,cn=accounts,dc=example,dc=com
+        - name: LDAP_GROUP_REQUEST
+          value: (&(objectClass=groupOfUniqueNames)(uniqueMember={dn}))
+        - name: LDAP_GROUP_ID_ATTR
+          value: cn
+        - name: LDAP_CONTEXTFACTORY
+          value: com.sun.jndi.ldap.LdapCtxFactory
+        - name: SONAR_AUTOCREATE_USERS
+          value: "true"
+        - name: LDAP_BINDDN
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: sonar-ldap-bind-dn
+        - name: LDAP_BINDPASSWD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: sonar-ldap-bind-dn
+        image: "{{ $.Values.sonarqube.image }}"
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 45
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: sonarqube
+        ports:
+        - containerPort: 9000
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 9000
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: "2"
+            memory: 2Gi
+          requests:
+            cpu: 200m
+            memory: 1Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /opt/sonarqube/data
+          name: sonar-data
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: sonar-data
+        persistentVolumeClaim:
+          claimName: sonarqube-data
