@@ -26,7 +26,7 @@ spec:
           - mountPath: /vault-unseal-config
             name: vault-unseal-config-volume
       restartPolicy: Never
-      serviceAccount: vault
+      serviceAccount: default
       volumes:
       - name: vault-unseal-config-volume
         configMap:
