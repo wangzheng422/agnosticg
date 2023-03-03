@@ -9,6 +9,7 @@ metadata:
     app.kubernetes.io/instance: vault
     app.kubernetes.io/name: vault-agent-injector
   name: vault-agent-injector-cfg
+  namespace: vault
 webhooks:
 - admissionReviewVersions:
   - v1
