@@ -1,9 +1,9 @@
 kind: ConfigMap
 metadata:
-name:  vault-unseal-config
+  name:  vault-unseal-config
 apiVersion: v1
 data:
-unseal.sh: |
+  unseal.sh: |
     unseal() {
         echo "unsealing..."
         vault operator unseal -tls-skip-verify $(grep -A 5 unseal_keys_b64 /vault/data/vault-auto-unseal-keys.txt |head -2|tail -1|sed 's/- //g')
