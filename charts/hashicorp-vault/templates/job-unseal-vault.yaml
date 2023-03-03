@@ -7,6 +7,9 @@ metadata:
     argocd.argoproj.io/hook: "PostSync"
     #argocd.argoproj.io/hook-delete-policy: HookSucceeded
   namespace: vault
+  labels:
+    app.kubernetes.io/instance: vault
+    app.kubernetes.io/name: vault
 spec:
   template:
     spec:
