@@ -6,7 +6,6 @@ metadata:
     meta.helm.sh/release-namespace: vault
   labels:
     app.kubernetes.io/instance: vault
-    app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vault-agent-injector
   name: vault-agent-injector-cfg
 webhooks:
