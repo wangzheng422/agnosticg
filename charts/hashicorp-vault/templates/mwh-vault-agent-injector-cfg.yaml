@@ -4,12 +4,10 @@ metadata:
   annotations:
     meta.helm.sh/release-name: vault
     meta.helm.sh/release-namespace: vault
-    argocd.argoproj.io/sync-wave: "-1"
   labels:
     app.kubernetes.io/instance: vault
     app.kubernetes.io/name: vault-agent-injector
   name: vault-agent-injector-cfg
-  namespace: vault
 webhooks:
 - admissionReviewVersions:
   - v1

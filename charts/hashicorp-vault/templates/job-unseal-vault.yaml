@@ -2,10 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: unseal-volt
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
-    argocd.argoproj.io/hook: "PostSync"
-    #argocd.argoproj.io/hook-delete-policy: HookSucceeded
   namespace: vault
   labels:
     app.kubernetes.io/instance: vault
@@ -19,6 +15,8 @@ spec:
             - /bin/bash
             - -c
             - |
+              sleep 30
+              oc wait --for=condition=Ready=true -n vault pod/vault-0
               oc exec vault-0 --namespace=vault --stdin --tty -- vault operator init -format=yaml > /tmp/vault-auto-unseal-keys.txt
               cat /tmp/vault-auto-unseal-keys.txt | oc exec -i -n vault vault-0 -c vault "--" sh -c "cat > /vault/data/vault-auto-unseal-keys.txt"
               cat /vault-unseal-config/unseal.sh | oc exec -i -n vault vault-0 -c vault "--" sh -c "cat > /vault/data/unseal.sh"
