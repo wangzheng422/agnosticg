@@ -2,3 +2,7 @@
 
 odf:
   channel: 'stable-4.10'
+  catalogSource:
+    name: redhat-operators-snapshot-odf
+    image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+    tag: v4.12_2023_02_20
