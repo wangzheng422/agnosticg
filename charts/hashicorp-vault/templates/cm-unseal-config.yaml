@@ -1,6 +1,9 @@
 kind: ConfigMap
 metadata:
   name:  vault-unseal-config
+  labels:
+    app.kubernetes.io/instance: vault
+    app.kubernetes.io/name: vault
 apiVersion: v1
 data:
   unseal.sh: |
