@@ -1,7 +1,7 @@
 #ODF Chart Values
 
 argocd:
-  channel: 'stable-4.12'
+  channel: 'stable'
   catalogSource:
     name: redhat-operators-snapshot-argocd
     image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
