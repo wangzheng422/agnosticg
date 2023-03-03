@@ -1,0 +1,15 @@
+resources:
+- cr-vault-agent-injector-clusterrole.yaml
+- crb-vault-agent-injector-binding.yaml
+- crb-vault-server-binding.yaml
+- dep-vault-agent-injector.yaml
+- mwh-vault-agent-injector-cfg.yaml
+- np-vault-agent-injector.yaml
+- sa-vault-agent-injector.yaml
+- sa-vault.yaml
+- ss-vault.yaml
+- svc-vault-agent-injector-svc.yaml
+- svc-vault-internal.yaml
+- svc-vault.yaml
+- cm-vault-config.yaml
+- rt-vault.yaml
