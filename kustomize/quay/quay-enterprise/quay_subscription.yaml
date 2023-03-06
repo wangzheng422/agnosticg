@@ -5,8 +5,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  channel: "{{ $.Values.quay.channel }}"
+  channel: "{{ ocp4_workload_gitops_quay_registry_channel }}"
   installPlanApproval: Automatic
   name: quay-operator
-  source: "{{ $.Values.quay.catalogSource.name }}"
+  source: "{{ ocp4_workload_gitops_quay_registry_catalogsource_name }}"
   sourceNamespace: openshift-operators

@@ -1,12 +1,10 @@
 apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
-  name: "{{ $.Values.quay.catalogSource.name }}"
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
+  name: "{{ ocp4_workload_gitops_quay_registry_catalogsource_name }}"
 spec:
   sourceType: grpc
   image: >-
-    {{ $.Values.quay.catalogSource.image }}:{{ $.Values.quay.catalogSource.imageTag }}
+    {{ ocp4_workload_gitops_quay_registry_catalogsource_image }}:{{ ocp4_workload_gitops_quay_registry_catalogsource_image_tag }}
   displayName: "Quay Enterprise Catalog Source"
   publisher: "Red Hat AgnosticD"
