@@ -15,8 +15,7 @@ spec:
             - /bin/bash
             - -c
             - |
-              sleep 30
-              oc wait --for=condition=Ready=true pod/vault-0
+              oc wait --for=condition=Ready=true -n vault pod/vault-0
               oc exec vault-0 --namespace=vault --stdin --tty -- vault operator init -format=yaml > /tmp/vault-auto-unseal-keys.txt
               cat /tmp/vault-auto-unseal-keys.txt | oc exec -i -n vault vault-0 -c vault "--" sh -c "cat > /vault/data/vault-auto-unseal-keys.txt"
               cat /vault-unseal-config/unseal.sh | oc exec -i -n vault vault-0 -c vault "--" sh -c "cat > /vault/data/unseal.sh"
@@ -26,7 +25,7 @@ spec:
           - mountPath: /vault-unseal-config
             name: vault-unseal-config-volume
       restartPolicy: Never
-      serviceAccount: vault-agent-injector
+      serviceAccount: vault
       volumes:
       - name: vault-unseal-config-volume
         configMap:
