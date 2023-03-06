@@ -2,7 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: config-bundle
-  namespace: quay-enterprise
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
