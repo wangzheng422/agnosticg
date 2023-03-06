@@ -11,13 +11,13 @@ spec:
   source:
     helm:
       parameters:
-        - name: odf.channel
+        - name: quay.channel
           value: {{ ocp4_workload_gitops_quay_registry_channel }}
-        - name: odf.catalogSource.name
+        - name: quay.catalogSource.name
           value: {{ ocp4_workload_gitops_quay_registry_catalogsource_name }}
-        - name: odf.catalogSource.image
+        - name: quay.catalogSource.image
           value: {{ ocp4_workload_gitops_quay_registry_catalogsource_image }}
-        - name: odf.catalogSource.imageTag
+        - name: quay.catalogSource.imageTag
           value: {{ ocp4_workload_gitops_quay_registry_catalogsource_image_tag }}
     path: charts/quay
     repoURL: {{ ocp4_workload_gitops_quay_registry_git_repo_url }}
