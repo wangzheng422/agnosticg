@@ -16,10 +16,10 @@ spec:
   - kind: route
     managed: true
   - kind: clair
-    managed: {{ ocp4_workload_quay_operator_registry_enable_clair }}
+    managed: {{ $.Values.quay.registry.clair.enabled }}
   - kind: horizontalpodautoscaler
-    managed: {{ ocp4_workload_quay_operator_registry_enable_hpa }}
+    managed: {{ $.Values.quay.registry.hpa.enabled }}
   - kind: mirror
-    managed: {{ ocp4_workload_quay_operator_registry_enable_mirror }}
+    managed: {{ $.Values.quay.registry.mirror.enabled }}
   - kind: monitoring
-    managed: {{ ocp4_workload_quay_operator_registry_enable_monitoring }}
+    managed: {{ $.Values.quay.registry.monitoring.enabled }}

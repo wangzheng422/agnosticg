@@ -4,6 +4,14 @@ quay:
   channel: 'stable-3.8'
   registry:
     name: quay
+    clair:
+      enabled: true
+    hpa:
+      enabled: false
+    mirror:
+      enabled: false
+    monitoring:
+      enabled: false
   catalogSource:
     name: redhat-operators-snapshot-quay
     image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
