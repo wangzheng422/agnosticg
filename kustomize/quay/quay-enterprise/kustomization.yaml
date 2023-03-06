@@ -1,6 +1,0 @@
-resources:
-- config_bundle_job.yaml
-- quay_catalog_source.yaml
-- quay_default_admin_role_binding.yaml
-- quay_registry.yaml
-- quay_subscription.yaml
