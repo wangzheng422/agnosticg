@@ -1,0 +1,3 @@
+resources:
+- argo-edit-role-binding.yaml
+- quay-default-admin-role-binding.yaml

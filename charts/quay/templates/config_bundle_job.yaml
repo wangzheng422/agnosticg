@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: config-bundle
+  namespace: quay-enterprise
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  template:
+    spec:
+      containers:
+      - name: config-bundle
+        command:
+            - /bin/bash
+            - -c
+            - |
+              yum install -y jq
+              APPS_DOMAIN=$(oc get ingress.config.openshift.io cluster -o json | jq '.spec.domain' | sed 's/\"//g')
+              echo $'REGISTRY_TITLE: Red Hat Product Demo System Quay\nSERVER_HOSTNAME: quay.$APPS_DOMAIN\nEXTERNAL_TLS_TERMINATION: true\nSUPER_USERS:\n- quayadmin\nFEATURE_USER_INITIALIZE: true' | sed 's/\$APPS_DOMAIN/'"${APPS_DOMAIN}"'/g' > /tmp/config.yaml
+              oc create secret generic config-bundle --from-file=config.yaml=/tmp/config.yaml
+        image: registry.redhat.io/openshift4/ose-cli:v4.7
+      restartPolicy: Never
+      serviceAccount: default

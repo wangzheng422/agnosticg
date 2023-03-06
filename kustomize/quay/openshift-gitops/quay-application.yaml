@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: quay-enterprise
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: openshift-storage
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      parameters:
+        - name: odf.channel
+          value: {{ ocp4_workload_gitops_quay_registry_channel }}
+        - name: odf.catalogSource.name
+          value: {{ ocp4_workload_gitops_quay_registry_catalogsource_name }}
+        - name: odf.catalogSource.image
+          value: {{ ocp4_workload_gitops_quay_registry_catalogsource_image }}
+        - name: odf.catalogSource.imageTag
+          value: {{ ocp4_workload_gitops_quay_registry_catalogsource_image_tag }}
+    path: charts/quay
+    repoURL: {{ ocp4_workload_gitops_quay_registry_git_repo_url }}
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {}

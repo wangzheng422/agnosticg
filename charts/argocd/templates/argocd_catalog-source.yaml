@@ -2,6 +2,8 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
   name: "{{ $.Values.argocd.catalogSource.name }}"
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   sourceType: grpc
   image: >-
