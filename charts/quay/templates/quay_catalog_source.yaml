@@ -2,6 +2,7 @@ apiVersion: operators.coreos.com/v1alpha1
 kind: CatalogSource
 metadata:
   name: {{ $.Values.quay.catalogSource.name }}
+  namespace: openshift-operators
 spec:
   sourceType: grpc
   image: >-
