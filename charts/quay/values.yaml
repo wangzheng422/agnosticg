@@ -1,6 +1,8 @@
 #ODF Chart Values
 
 quay:
+  registry:
+    name: quay
   channel: 'stable'
   catalogSource:
     name: redhat-operators-snapshot-quay-operator

@@ -1,8 +1,7 @@
 apiVersion: quay.redhat.com/v1
 kind: QuayRegistry
 metadata:
-  name: "{{ ocp4_workload_quay_operator_registry_name }}"
-  namespace: "{{ ocp4_workload_quay_operator_registry_namespace }}"
+  name: "{{ $.Values.quay.registry.name }}"
 spec:
   configBundleSecret: config-bundle
   components:
