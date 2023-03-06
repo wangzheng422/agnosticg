@@ -7,6 +7,6 @@ metadata:
 spec:
   sourceType: grpc
   image: >-
-    {{ $.Values.argquayocd.catalogSource.image }}:{{ $.Values.quay.catalogSource.imageTag }}
+    {{ $.Values.quay.catalogSource.image }}:{{ $.Values.quay.catalogSource.imageTag }}
   displayName: "Quay Enterprise Catalog Source"
   publisher: "Red Hat AgnosticD"

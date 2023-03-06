@@ -1,6 +1,6 @@
 #ODF Chart Values
 
-argocd:
+quay:
   channel: 'stable'
   catalogSource:
     name: redhat-operators-snapshot-quay-operator
