@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: openshift-storage
+    namespace: {{ ocp4_workload_gitops_quay_registry_namespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   source:
