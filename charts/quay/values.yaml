@@ -1,0 +1,10 @@
+#Sonarqube Chart Values
+
+quay:
+  channel: 'stable-3.8'
+  registry:
+    name: quay
+  catalogSource:
+    name: redhat-operators-snapshot-quay
+    image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog
+    imageTag: v4.12_2023_02_20
