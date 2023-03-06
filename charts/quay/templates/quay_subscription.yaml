@@ -4,6 +4,7 @@ metadata:
   name: quay-operator
   annotations:
     argocd.argoproj.io/sync-wave: "1"
+  namespace: openshift-operators
 spec:
   channel: "{{ $.Values.quay.channel  }}"
   installPlanApproval: Automatic
