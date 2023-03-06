@@ -1,0 +1,13 @@
+#Sonarqube Chart Values
+
+quay:
+  registry:
+    name: quay
+    clair:
+      enabled: true
+    hpa:
+      enabled: false
+    mirror:
+      enabled: false
+    monitoring:
+      enabled: false
