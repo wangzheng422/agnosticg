@@ -17,7 +17,7 @@ data:
     fi
     ENDPOINT=$(oc get quayregistry quay -n quay-enterprise -o json | jq '.status.registryEndpoint' | sed 's/"//g')
     STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ENDPOINT/api/v1/discovery)
-    while [ $STATUS_CODE -ne 200 ] & [ $STATUS_CODE -ne 403 ]; do
+    while [ $STATUS_CODE -ne 200 ] && [ $STATUS_CODE -ne 403 ]; do
         sleep 5s
         STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" $ENDPOINT/api/v1/discovery)
     done
