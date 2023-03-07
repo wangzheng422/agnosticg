@@ -5,6 +5,6 @@ metadata:
 spec:
   channel: "{{ $.Values.amqstreams.channel }}"
   installPlanApproval: Automatic
-  name: amqstreams-operator
+  name: amq-streams
   source: "{{ $.Values.amqstreams.catalogSource.name }}"
   sourceNamespace: openshift-operators
