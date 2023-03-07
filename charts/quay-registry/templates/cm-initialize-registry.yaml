@@ -10,12 +10,6 @@ data:
     then
         exit $RESULT
     fi
-    VERSION=$(oc get quayregistry {{ $.Values.quay.registry.name }} -n quay-enterprise -o json | jq '.status.currentVersion' | sed 's/"//g')
-    echo $VERSION
-    if [ -z "$VERSION" ];
-    then
-        exit 1
-    fi
     ENDPOINT=$(oc get quayregistry quay -n quay-enterprise -o json | jq '.status.registryEndpoint' | sed 's/"//g')
     while [ -z "$ENDPOINT" ]; do
       sleep 5s
