@@ -1,5 +1,5 @@
 apiVersion: v2
-name: amqstreams
+name: amqstreams-operator
 description: A Helm chart to deploy AMQ Streams resources for Kubernetes
 type: application
 
