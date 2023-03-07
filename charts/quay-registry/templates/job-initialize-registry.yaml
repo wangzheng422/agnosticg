@@ -2,9 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: init-registry
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
 spec:
+  backoffLimit: 100
   template:
     spec:
       containers:

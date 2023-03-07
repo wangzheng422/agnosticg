@@ -2,3 +2,5 @@
 
 sonarqube:
   image: docker.io/kenmoini/openshift-sonarqube
+  adminPassword: admin
+  namespace: sonarqube
