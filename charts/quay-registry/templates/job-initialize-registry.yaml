@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: config-bundle
+  name: init-registry
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
 spec:
@@ -13,14 +13,14 @@ spec:
             - /bin/bash
             - -c
             - |
-              sh /init-config-bundle/init_config_bundle.sh
+              sh /init-registry/init_registry.sh
         image: registry.redhat.io/openshift4/ose-cli:v4.7
         volumeMounts:
-          - mountPath: /init-config-bundle
-            name: init-config-bundle-volume
+          - mountPath: /init-registry
+            name: init-registry-volume
       restartPolicy: Never
       serviceAccount: default
       volumes:
-      - name: init-config-bundle-volume
+      - name: init-registry-volume
         configMap:
-          name: cm-init-config-bundle
+          name: cm-init-registry
