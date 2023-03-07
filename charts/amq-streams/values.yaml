@@ -1,6 +1,6 @@
 #ODF Chart Values
 
-argocd:
+amqstreams:
   channel: 'stable'
   catalogSource:
     name: redhat-operators-snapshot-argocd

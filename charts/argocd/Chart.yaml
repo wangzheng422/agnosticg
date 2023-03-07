@@ -1,6 +1,6 @@
 apiVersion: v2
-name: amqstreams
-description: A Helm chart to deploy AMQ Streams resources for Kubernetes
+name: argocd
+description: A Helm chart to deploy ArgoCD resources for Kubernetes
 type: application
 
 version: 0.1.0
