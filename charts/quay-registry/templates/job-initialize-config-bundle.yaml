@@ -23,4 +23,4 @@ spec:
       volumes:
       - name: init-config-bundle-volume
         configMap:
-          name: init-config-bundle
+          name: cm-init-config-bundle

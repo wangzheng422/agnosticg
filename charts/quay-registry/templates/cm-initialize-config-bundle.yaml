@@ -1,6 +1,6 @@
 kind: ConfigMap
 metadata:
-  name:  init-config-bundle
+  name:  cm-init-config-bundle
 apiVersion: v1
 data:
   init_config_bundle.sh: |
@@ -11,8 +11,8 @@ data:
         exit $RESULT
     fi
 
-    oc get ingress.config.openshift.io cluster
-    if [ $RESULT -ne 0 ];
+    oc get ingress.config.openshift.io cluster | grep -q 'Error' &> /dev/null
+    if [ $? -ne 0 ];
     then
         exit $RESULT
     fi

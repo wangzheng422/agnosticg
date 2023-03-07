@@ -11,3 +11,5 @@ quay:
       enabled: false
     monitoring:
       enabled: false
+    username: quayadmin
+    password: quayadmin
