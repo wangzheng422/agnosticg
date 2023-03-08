@@ -4,6 +4,9 @@ kind: StorageCluster
 metadata:
   namespace: openshift-storage
   name: ocs-storagecluster
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   storageDeviceSets:
   - name: ocs-deviceset
