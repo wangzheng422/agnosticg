@@ -108,6 +108,8 @@ spec:
           requests:
             cpu: 200m
             memory: 1Gi
+        securityContext:
+          privileged: true
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
