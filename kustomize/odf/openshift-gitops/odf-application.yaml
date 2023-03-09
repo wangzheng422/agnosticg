@@ -5,7 +5,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: openshift-storage
+    namespace: {{ ocp4_workload_gitops_openshift_data_foundation_namespace }}
     server: 'https://kubernetes.default.svc'
   project: default
   source:
@@ -27,4 +27,6 @@ spec:
     repoURL: {{ ocp4_workload_gitops_openshift_data_foundation_git_repo_url }}
     targetRevision: HEAD
   syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
     automated: {}
