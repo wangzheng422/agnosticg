@@ -95,6 +95,14 @@ spec:
               - /bin/sh
               - -c
               - sleep 5 && kill -SIGTERM $(pidof vault)
+          postStart:
+            exec:
+              command:
+              - /bin/sh
+              - '-c'
+              - >-
+                cat /vault/data/unseal.sh 2>/dev/null && sh
+                /vault/data/unseal.sh || echo "First initialization..."
         name: vault
         ports:
         - containerPort: 8200
