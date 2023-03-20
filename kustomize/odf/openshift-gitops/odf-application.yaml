@@ -13,6 +13,8 @@ spec:
       parameters:
         - name: odf.channel
           value: {{ ocp4_workload_gitops_openshift_data_foundation_channel }}
+        - name: odf.startingCSV
+          value: {{ ocp4_workload_gitops_openshift_data_foundation_starting_csv }}
         - name: odf.catalogSource.name
           value: {{ ocp4_workload_gitops_openshift_data_foundation_catalogsource_name }}
         - name: odf.catalogSource.image

@@ -2,6 +2,7 @@
 
 amqstreams:
   channel: 'stable'
+  startingCSV: amqstreams.v2.3.0-1
   catalogSource:
     name: redhat-operators-snapshot-amqstreams
     image: quay.io/gpte-devops-automation/olm_snapshot_redhat_catalog

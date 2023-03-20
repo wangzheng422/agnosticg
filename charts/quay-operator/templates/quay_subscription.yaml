@@ -6,6 +6,9 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   channel: "{{ $.Values.quay.channel  }}"
+{{- if $.Values.quay.startingCSV }}
+  startingCSV: "{{ $.Values.quay.startingCSV }}"
+{{- end }}
   installPlanApproval: Automatic
   name: quay-operator
   source: "{{ $.Values.quay.catalogSource.name }}"
