@@ -1,9 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  labels:
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/name: vault-agent-injector
   name: vault-agent-injector
 spec:
   ingress:

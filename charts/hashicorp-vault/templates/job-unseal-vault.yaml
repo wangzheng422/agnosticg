@@ -2,10 +2,6 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: unseal-volt
-  namespace: vault
-  labels:
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/name: vault
 spec:
   template:
     spec:

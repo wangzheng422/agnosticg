@@ -1,14 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-    meta.helm.sh/release-name: vault
-    meta.helm.sh/release-namespace: vault
   labels:
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: vault-agent-injector
     component: webhook
   name: vault-agent-injector
   namespace: vault
@@ -18,8 +11,6 @@ spec:
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: vault
-      app.kubernetes.io/name: vault-agent-injector
       component: webhook
   strategy:
     rollingUpdate:

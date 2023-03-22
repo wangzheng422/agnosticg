@@ -1,12 +1,6 @@
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
-  annotations:
-    meta.helm.sh/release-name: vault
-    meta.helm.sh/release-namespace: vault
-  labels:
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/name: vault-agent-injector
   name: vault-agent-injector-cfg
 webhooks:
 - admissionReviewVersions:

@@ -2,10 +2,6 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: vault
-  labels:
-    app: acm-vault
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/name: vault
 spec:
   to:
     kind: Service

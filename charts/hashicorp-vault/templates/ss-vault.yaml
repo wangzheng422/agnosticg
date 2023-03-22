@@ -1,9 +1,6 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  labels:
-    app.kubernetes.io/instance: vault
-    app.kubernetes.io/name: vault
   name: vault
 spec:
   podManagementPolicy: Parallel
