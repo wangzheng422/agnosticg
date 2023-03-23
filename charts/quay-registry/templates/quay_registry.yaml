@@ -18,6 +18,8 @@ spec:
     managed: true
   - kind: route
     managed: true
+  - kind: quay
+    managed: true
   - kind: clair
     managed: {{ $.Values.quay.registry.clair.enabled }}
   - kind: horizontalpodautoscaler
@@ -26,3 +28,5 @@ spec:
     managed: {{ $.Values.quay.registry.mirror.enabled }}
   - kind: monitoring
     managed: {{ $.Values.quay.registry.monitoring.enabled }}
+  - kind: clairpostgres
+    managed: {{ $.Values.quay.registry.clairpostgres.enabled }}
