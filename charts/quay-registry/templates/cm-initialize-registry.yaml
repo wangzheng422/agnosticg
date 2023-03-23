@@ -1,6 +1,8 @@
 kind: ConfigMap
 metadata:
   name:  cm-init-registry
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 apiVersion: v1
 data:
   init_registry.sh: |
