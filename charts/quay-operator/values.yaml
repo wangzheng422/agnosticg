@@ -1,6 +1,7 @@
 #Sonarqube Chart Values
 
 quay:
+  namespace: quay-enterprise
   channel: 'stable-3.8'
   startingCSV: quay-operator.v3.8.2
   catalogSource:
