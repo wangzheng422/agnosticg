@@ -2,7 +2,7 @@ kind: ConfigMap
 metadata:
   name:  cm-init-bundle
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "0"
 apiVersion: v1
 data:
   init_bundle.sh: |
