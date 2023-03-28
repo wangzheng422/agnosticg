@@ -2,5 +2,5 @@
 
 rhacs:
   namespace: rhacs-operator
-  channel: stable-3.74
+  channel: latest
   startingCSV: rhacs-operator.v3.74.1
