@@ -1,0 +1,14 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: rhacs-operator
+  namespace: "{{ $.Values.rhacsSecuredCluster.namespace }}"
+spec:
+  channel: "{{ $.Values.rhacsSecuredCluster.channel }}"
+{{- if $.Values.rhacsSecuredCluster.startingCSV }}
+  startingCSV: "{{ $.Values.rhacsSecuredCluster.startingCSV }}"
+{{- end }}
+  installPlanApproval: Automatic
+  name: rhacs-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
