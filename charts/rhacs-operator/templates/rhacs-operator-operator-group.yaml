@@ -3,6 +3,4 @@ kind: OperatorGroup
 metadata:
   name: rhacs-operator-og
   namespace: "{{ $.Values.rhacs.namespace }}"
-spec:
-  targetNamespaces:
-  - "{{ $.Values.rhacs.namespace }}"
+spec: {}
