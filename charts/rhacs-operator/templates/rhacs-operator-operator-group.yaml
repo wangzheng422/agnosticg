@@ -5,7 +5,7 @@ metadata:
     olm.providedAPIs: >-
       Central.v1alpha1.platform.stackrox.io,SecuredCluster.v1alpha1.platform.stackrox.io
   name: rhacs-operator-og
-  namespace: "{{ $.Values.rhacsSecuredCluster.namespace }}"
+  namespace: "{{ $.Values.rhacs.namespace }}"
 spec:
   targetNamespaces:
-  - "{{ $.Values.rhacsSecuredCluster.namespace }}"
+  - "{{ $.Values.rhacs.namespace }}"

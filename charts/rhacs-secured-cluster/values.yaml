@@ -1,0 +1,6 @@
+#Sonarqube Chart Values
+
+rhacsSecuredCluster:
+  name: cluster
+  namespace: stackrox
+  centralEndpoint: ""
