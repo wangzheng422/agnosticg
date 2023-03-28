@@ -20,7 +20,7 @@ spec:
           - mountPath: /init-bundle
             name: init-bundle-volume
       restartPolicy: Never
-      serviceAccount: default
+      serviceAccount: rhacs-secured-cluster
       volumes:
       - name: init-bundle-volume
         configMap:
