@@ -1,11 +1,11 @@
 kind: ConfigMap
 metadata:
-  name:  cm-init-registry
+  name:  cm-init-bundle
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 apiVersion: v1
 data:
-  init_registry.sh: |
+  init_bundle.sh: |
     yum install -y jq
     RESULT=$?
     if [ $RESULT -ne 0 ];
