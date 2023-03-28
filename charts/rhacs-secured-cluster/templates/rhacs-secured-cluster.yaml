@@ -22,4 +22,4 @@ spec:
       collection: KernelModule
       imageFlavor: Regular
     taintToleration: TolerateTaints
-  centralEndpoint: "{{ $.Values.rhacsSecuredCluster.centralEndpoint }}"
+  centralEndpoint: "{{ $.Values.rhacsSecuredCluster.central.endpoint }}"
