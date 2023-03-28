@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+  name: init-bundle-job
+  namespace: "{{ $.Values.rhacsSecuredCluster.namespace }}"
+spec:
+  template:
+    spec:
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+              set -e
+
+              curl -X POST {{ $.Values.rhacsSecuredCluster.central.url }}/v1/cluster-init/init-bundles -u "{{ $.Values.rhacsSecuredCluster.central.username }}:{{ $.Values.rhacsSecuredCluster.cluster.password }}" -s -H "Content-Type: application/json" -d '{"name": "prod-{{ $.Values.rhacsSecuredCluster.name }}"}'
+
+          imagePullPolicy: Always
+          name: label-storage-nodes-bundle
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: label-storage-nodes
+      serviceAccountName: label-storage-nodes
+      terminationGracePeriodSeconds: 30

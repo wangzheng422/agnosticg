@@ -3,6 +3,8 @@ kind: SecuredCluster
 metadata:
   namespace: "{{ $.Values.rhacsSecuredCluster.namespace }}"
   name: stackrox-secured-cluster-services
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   clusterName: "{{ $.Values.rhacsSecuredCluster.name }}"
   auditLogs:

@@ -3,4 +3,8 @@
 rhacsSecuredCluster:
   name: cluster
   namespace: stackrox
-  centralEndpoint: ""
+  central:
+    url: ""
+    endpoint: ""
+    username: ""
+    password: ""
