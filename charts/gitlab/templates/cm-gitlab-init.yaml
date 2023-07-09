@@ -1,8 +1,8 @@
 kind: ConfigMap
 metadata:
-  name:  cm-configure-argocd
+  name:  cm-init-gitlab
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "3"
 apiVersion: v1
 data:
   generate-root-token.sh: |
@@ -36,7 +36,9 @@ data:
     personal_access_token=$(echo $body_header | perl -ne 'print "$1\n" if /created-personal-access-token"[[:blank:]]value="(.+?)"/' | sed -n 1p)
     oc create secret generic root-user-personal-token --from-literal=token=$personal_access_token -n {{ $.Release.Namespace }}
   playblook.yaml: |
-    - hosts: localhost
+    ---
+    - name: Configure GitLab
+      hosts: localhost
       vars:
         gitlab_namespace: {{ $.Release.Namespace }}
         root_password: {{ $.gitlab.rootPassword }}
@@ -46,58 +48,57 @@ data:
         user_password: {{$.gitlab.user.password }}
         user_email: {{ $.gitlab.user.email }}
       tasks:
+        - name: Check GitLab Liveness
+          ansible.builtin.uri:
+            url: http://gitlab.gitlab.svc/api/v4/projects
+            method: GET
+          register: r_liveness
+          retries: 60
+          delay: 10
+          until: r_liveness.status == 200
+
         - name: Check that Gitlab is running
-        block:
-            - name: Check GitLab Liveness
-            ansible.builtin.uri:
-                url: http://gitlab.gitlab.svc/api/v4/projects
-                method: GET
-            register: r_liveness
-            retries: 60
-            delay: 10
-            until: r_liveness.status == 200
+          pause:
+            minutes: 5
 
-            - name: Check that Gitlab is running
-            pause:
-                minutes: 5
+        - name: Check GitLab Liveness (2)
+          ansible.builtin.uri:
+            url: http://gitlab.gitlab.svc/api/v4/projects
+            method: GET
+          register: r_liveness
+          retries: 60
+          delay: 10
+          until: r_liveness.status == 200
 
-            - name: Check GitLab Liveness (2)
-            ansible.builtin.uri:
-                url: http://gitlab.gitlab.svc/api/v4/projects
-                method: GET
-            register: r_liveness
-            retries: 60
-            delay: 10
-            until: r_liveness.status == 200
+        - name: Generate root user personal token
+          shell: |
+            sh /scripts/generate-root-token.sh
 
-            - name: Generate root user personal token
-            shell: |
-                sh /scripts/generate-root-token.sh
+        - name: Retrieve Gitea instance
+          kubernetes.core.k8s_info:
+            api_version: gpte.opentlc.com/v1
+            kind: Secret
+            name: root-user-personal-token
+            namespace: "{{ gitlab_namespace }}"
+          register: r_root_token
 
-            - name: Retrieve Gitea instance
-            kubernetes.core.k8s_info:
-                api_version: gpte.opentlc.com/v1
-                kind: Secret
-                name: root-user-personal-token
-                namespace: "{{ gitlab_namespace }}"
-            register: r_root_token
+        - name: Decode root token
+          set_fact:
+            root_token: "{{ r_token.resources[0].data.token | b64decode }}"
 
-            - name: Decode root token
-            set_fact:
-                root_token: "{{ r_token.resources[0].data.token | b64decode }}"
-
-            - name: Create default user (admin for now)
-            when: user_create
-            ansible.builtin.uri:
-                url: https://your.form.based.auth.example.com/index.php
-                method: POST
-                body_format: form-urlencoded
-                body:
-                admin: true
-                email: "{{ user_email }}"
-                skip_confirmation: true
-                username: "{{ user_username }}"
-                password: "{{ user_password }}"
-                name: "{{ user_name }}"
-                status_code: 201
-
+        - name: Create default user (admin for now)
+          when: user_create
+          ansible.builtin.uri:
+            url: https://your.form.based.auth.example.com/index.php
+            method: POST
+            body_format: form-urlencoded
+            body:
+              admin: true
+              email: "{{ user_email }}"
+              skip_confirmation: true
+              username: "{{ user_username }}"
+              password: "{{ user_password }}"
+              name: "{{ user_name }}"
+            headers:
+              PRIVATE-TOKEN: "{{ root_token }}"
+            status_code: 201
