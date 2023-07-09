@@ -121,7 +121,7 @@ data:
           ignore_errors: true
           register: r_user
 
-{{- range $item := .Values.gitlab.namespaces }}
+{{- range $item := .Values.gitlab.groups }}
 
         - name: Create group
           ansible.builtin.uri:

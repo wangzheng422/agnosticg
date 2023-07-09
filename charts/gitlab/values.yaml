@@ -28,7 +28,7 @@ gitlab:
     password: openshift
     email: treddy@opentlc.com
 
-  namespaces:
+  groups:
   - name: backstage
     repo:
     - name: software-templates
