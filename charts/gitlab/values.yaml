@@ -26,5 +26,3 @@ postgresql:
   dbUser: gitlab
   dbPassword: passw0rd
   dbName: gitlab_production
-
-redis:
