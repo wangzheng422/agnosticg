@@ -122,6 +122,7 @@ data:
           register: r_user
 
 {{- range $item := .Values.gitlab.namespaces }}
+
         - name: Create group
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/groups
@@ -162,7 +163,7 @@ data:
             body_format: form-urlencoded
             body:
               name: {{ $item1.name }}
-              import_url: {{ $item.url }}
+              import_url: {{ $item1.url }}
               visibility: public
               namespace_id: '{{ "{{" }} r_group.json.id {{ "}}" }}'
             headers:
