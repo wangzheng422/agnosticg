@@ -57,9 +57,9 @@ data:
           delay: 10
           until: r_liveness.status == 200
 
-        - name: Check that Gitlab is running
-          pause:
-            minutes: 5
+        # - name: Check that Gitlab is running
+        #   pause:
+        #     minutes: 5
 
         - name: Check GitLab Liveness (2)
           ansible.builtin.uri:
@@ -79,12 +79,12 @@ data:
             api_version: gpte.opentlc.com/v1
             kind: Secret
             name: root-user-personal-token
-            namespace: "{{ '{{' }} gitlab_namespace {{ '}}' }}"
+            namespace: {{ "{{" }} gitlab_namespace {{ "}}" }}
           register: r_root_token
 
         - name: Decode root token
           set_fact:
-            root_token: "{{ '{{' }} r_token.resources[0].data.token | b64decode {{ '}}' }}"
+            root_token: {{ "{{" }} r_token.resources[0].data.token | b64decode {{ "}}" }}
 
         - name: Create default user (admin for now)
           when: user_create
@@ -94,11 +94,11 @@ data:
             body_format: form-urlencoded
             body:
               admin: true
-              email: "{{ '{{' }} user_email {{ '}}' }}"
+              email: {{ "{{" }} user_email {{ "}}" }}
               skip_confirmation: true
-              username: "{{ '{{' }} user_username {{ '}}' }}"
-              password: "{{ '{{' }} user_password {{ '}}' }}"
-              name: "{{ '{{' }} user_name {{ '}}' }}"
+              username: {{ "{{" }} user_username {{ "}}" }}
+              password: {{ "{{" }} user_password {{ "}}" }}
+              name: {{ "{{" }} user_name {{ "}}" }}
             headers:
-              PRIVATE-TOKEN: "{{ '{{' }} root_token {{ '}}' }}"
+              PRIVATE-TOKEN: {{ "{{" }} root_token {{ "}}" }}
             status_code: 201
