@@ -27,12 +27,12 @@ gitlab:
     username: labuser
     password: openshift
     email: treddy@opentlc.com
-
-  groups:
-  - name: backstage
-    repo:
-    - name: software-templates
-      url: https://github.com/treddy08/software-templates.git
+  groups: []
+  # groups:
+  # - name: backstage
+  #   repo:
+  #   - name: software-templates
+  #     url: https://github.com/treddy08/software-templates.git
 
 postgresql:
   dbUser: gitlab
