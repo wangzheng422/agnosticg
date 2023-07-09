@@ -10,7 +10,7 @@ data:
 
     gitlab_host="https://{{ $.Values.gitlab.host }}"
     gitlab_user="root"
-    gitlab_password="{{ $.Values.gitlab.rootPassword }}""
+    gitlab_password="{{ $.Values.gitlab.rootPassword }}"
 
     oc get secret root-user-personal-token -n gitlab
     RESULT=$?
