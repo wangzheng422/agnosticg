@@ -21,7 +21,7 @@ spec:
           - mountPath: /scripts
             name: init-gitlab-vol
       restartPolicy: Never
-      serviceAccount: openshift-gitops-operator-sa
+      serviceAccount: gitlab
       volumes:
       - name: init-gitlab-vol
         configMap:
