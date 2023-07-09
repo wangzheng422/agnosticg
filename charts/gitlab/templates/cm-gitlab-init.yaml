@@ -12,7 +12,7 @@ data:
 
     oc get secret generic root-user-personal-token -n gitlab
     RESULT=$?
-    if [ $RESULT -ne 0 ];
+    if [ $RESULT -eq 0 ];
     then
         exit 0
     fi
