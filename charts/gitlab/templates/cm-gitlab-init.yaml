@@ -6,7 +6,7 @@ metadata:
 apiVersion: v1
 data:
   generate-root-token.sh: |
-    gitlab_host="http://gitlab.gitlab.svc"
+    gitlab_host="https://gitlab-gitlab.apps.cluster-ctmxg.ctmxg.sandbox430.opentlc.com"
     gitlab_user="root"
     gitlab_password="openshift"
 
