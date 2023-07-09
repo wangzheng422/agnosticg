@@ -8,9 +8,16 @@ data:
   generate-root-token.sh: |
     set -x
 
-    gitlab_host="https://gitlab-gitlab.apps.cluster-ctmxg.ctmxg.sandbox430.opentlc.com"
+    gitlab_host="https://${{ $.gitlab.host }}"
     gitlab_user="root"
     gitlab_password="openshift"
+
+    oc get secret root-user-personal-token -n gitlab
+    RESULT=$?
+    if [ $RESULT -eq 0 ];
+    then
+        exit 0
+    fi
 
     # curl for the login page to get a session cookie and the sources with the auth tokens
     body_header=$(curl -c /tmp/cookies.txt -i "${gitlab_host}/users/sign_in" -s)
@@ -108,3 +115,4 @@ data:
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
             status_code: 201
+          ignore_erros: true
