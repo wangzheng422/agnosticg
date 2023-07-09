@@ -119,3 +119,56 @@ data:
             validate_certs: false
             status_code: 201
           ignore_errors: true
+          register: r_user
+
+{{- range $item := .Values.namespaces }}
+        - name: Create group
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/groups
+            method: POST
+            body_format: form-urlencoded
+            body:
+              name: {{ $item.name }}
+              path: {{ $item.name }}
+              visibility: public
+            headers:
+              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
+            validate_certs: false
+            status_code: 201
+          ignore_errors: true
+          register: r_group
+
+{{- range $item1 := $item.repo }}
+        - name: Add user to group
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/groups/'{{ "{{" }} r_group.json.id {{ "}}" }}'/members
+            method: POST
+            body_format: form-urlencoded
+            body:
+              id: '{{ "{{" }} r_user.json.id {{ "}}" }}'
+              user_id: '{{ "{{" }} user_username {{ "}}" }}'
+              access_level: 50
+            headers:
+              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
+            validate_certs: false
+            status_code: 201
+          ignore_errors: true
+
+        - name: Import repository to group
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/projects
+            method: POST
+            body_format: form-urlencoded
+            body:
+              name: {{ $item1.name }}
+              import_url: {{ $item.url }}
+              visibility: public
+              namespace_id: '{{ "{{" }} r_group.json.id {{ "}}" }}'
+            headers:
+              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
+            validate_certs: false
+            status_code: 201
+          ignore_errors: true
+          register: r_group
+{{- end }}
+{{- end }}

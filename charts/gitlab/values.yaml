@@ -28,6 +28,12 @@ gitlab:
     password: openshift
     email: treddy@opentlc.com
 
+  namespaces:
+  - name: backstage
+    repo:
+    - name: software-templates
+      url: https://github.com/treddy08/software-templates.git
+
 postgresql:
   dbUser: gitlab
   dbPassword: passw0rd
