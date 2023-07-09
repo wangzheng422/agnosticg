@@ -8,7 +8,7 @@ data:
   generate-root-token.sh: |
     set -x
 
-    gitlab_host="https://${{ $.gitlab.host }}"
+    gitlab_host="https://{{ $.Values.gitlab.host }}"
     gitlab_user="root"
     gitlab_password="openshift"
 
