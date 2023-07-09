@@ -10,7 +10,7 @@ data:
     gitlab_user="root"
     gitlab_password="openshift"
 
-    oc get secret generic root-user-personal-token -n gitlab
+    oc get secret root-user-personal-token -n gitlab
     RESULT=$?
     if [ $RESULT -eq 0 ];
     then
