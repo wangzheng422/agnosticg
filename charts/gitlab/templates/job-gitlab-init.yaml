@@ -16,7 +16,6 @@ spec:
           - |
             set -x
             ansible-playbook -i localhost /scripts/playblook.yaml
-            trap : TERM INT; sleep infinity & wait
         image: quay.io/agnosticd/ee-multicloud:latest
         volumeMounts:
           - mountPath: /scripts
