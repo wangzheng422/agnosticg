@@ -18,9 +18,9 @@ gitlab:
   https: "true"
   rootEmail: "treddy@redhat.com"
   keyBase:
-    db: 0123456789
-    otp: 0123456789
-    secret: 0123456789
+    db: "0123456789"
+    otp: "0123456789"
+    secret: "0123456789"
 
 postgresql:
   dbUser: gitlab
