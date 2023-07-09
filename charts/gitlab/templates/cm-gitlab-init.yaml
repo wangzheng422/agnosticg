@@ -57,33 +57,33 @@ data:
         user_password: {{ $.Values.gitlab.user.password }}
         user_email: {{ $.Values.gitlab.user.email }}
       tasks:
-        # - name: Check GitLab Liveness
-        #   ansible.builtin.uri:
-        #     url: https://{{ $.Values.gitlab.host }}/api/v4/projects
-        #     method: GET
-        #     validate_certs: false
-        #   register: r_liveness
-        #   retries: 60
-        #   delay: 10
-        #   until: r_liveness.status == 200
+        - name: Check GitLab Liveness
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/projects
+            method: GET
+            validate_certs: false
+          register: r_liveness
+          retries: 60
+          delay: 10
+          until: r_liveness.status == 200
 
-        # - name: Wait for GitLab second restart recovery
-        #   pause:
-        #     minutes: 3
+        - name: Wait for GitLab second restart recovery
+          pause:
+            minutes: 3
 
-        # - name: Check GitLab Liveness (2)
-        #   ansible.builtin.uri:
-        #     url: https://{{ $.Values.gitlab.host }}/api/v4/projects
-        #     method: GET
-        #     validate_certs: false
-        #   register: r_liveness
-        #   retries: 60
-        #   delay: 10
-        #   until: r_liveness.status == 200
+        - name: Check GitLab Liveness (2)
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/projects
+            method: GET
+            validate_certs: false
+          register: r_liveness
+          retries: 60
+          delay: 10
+          until: r_liveness.status == 200
 
-        # - name: Generate root user personal token
-        #   shell: |
-        #     sh /scripts/generate-root-token.sh
+        - name: Generate root user personal token
+          shell: |
+            sh /scripts/generate-root-token.sh
 
         - name: Retrieve Gitea instance
           kubernetes.core.k8s_info:
