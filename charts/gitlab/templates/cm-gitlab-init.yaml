@@ -8,7 +8,7 @@ data:
   generate-root-token.sh: |
     gitlab_host="http://gitlab.gitlab.svc"
     gitlab_user="root"
-    gitlab_password="{{ $.gitlab.rootPassword }}"
+    gitlab_password={{ $.gitlab.rootPassword }}
 
     # curl for the login page to get a session cookie and the sources with the auth tokens
     body_header=$(curl -c cookies.txt -i "${gitlab_host}/users/sign_in" -s)
