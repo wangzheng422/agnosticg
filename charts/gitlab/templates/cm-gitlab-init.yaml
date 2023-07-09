@@ -143,11 +143,11 @@ data:
 
         - name: Debug 1
           debug:
-            msg:  '{{ "{{" }} r_user {{ "}}" }}' and '{{ "{{" }} user_username {{ "}}" }}'
+            msg:  '{{ "{{" }} r_user {{ "}}" }} and {{ "{{" }} user_username {{ "}}" }}'
 
         - name: Debug 2
           debug:
-            msg:  '{{ "{{" }} r_user.json[0].id {{ "}}" }}' and '{{ "{{" }} user_username {{ "}}" }}'
+            msg:  '{{ "{{" }} r_user.json[0].id {{ "}}" }} and {{ "{{" }} user_username {{ "}}" }}'
 
         - name: Add user to group
           ansible.builtin.uri:
