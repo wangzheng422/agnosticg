@@ -11,7 +11,7 @@ data:
   GITLAB_EMAIL_DISPLAY_NAME: {{ $.Values.gitlab.email.displayName }}
   GITLAB_EMAIL_REPLY_TO: {{ $.Values.gitlab.email.replyTo }}
   GITLAB_HOST: {{ $.Values.gitlab.gitlabHost }}
-  GITLAB_HTTPS: {{ $.Values.gitlab.https }}
+  GITLAB_HTTPS: "{{ $.Values.gitlab.https }}"
   GITLAB_NOTIFY_ON_BROKEN_BUILDS: "true"
   GITLAB_NOTIFY_PUSHER: "false"
   GITLAB_PIPELINE_SCHEDULE_WORKER_CRON: '*/5 * * * *'
@@ -25,7 +25,7 @@ data:
   REDIS_PORT: "6379"
   SMTP_AUTHENTICATION: login
   SMTP_DOMAIN: {{ $.Values.gitlab.smtp.domain }}
-  SMTP_ENABLED: {{ $.Values.gitlab.smtp.enabled }}
+  SMTP_ENABLED: "{{ $.Values.gitlab.smtp.enabled }}"
   SMTP_HOST: {{ $.Values.gitlab.smtp.host }}
   SMTP_PORT: {{ $.Values.gitlab.smtp.port }}
   SMTP_STARTTLS: "true"
