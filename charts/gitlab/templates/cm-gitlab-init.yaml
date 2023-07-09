@@ -10,6 +10,13 @@ data:
     gitlab_user="root"
     gitlab_password="openshift"
 
+    oc get secret generic root-user-personal-token -n gitlab
+    RESULT=$?
+    if [ $RESULT -ne 0 ];
+    then
+        exit 0
+    fi
+
     # curl for the login page to get a session cookie and the sources with the auth tokens
     body_header=$(curl -c cookies.txt -i "${gitlab_host}/users/sign_in" -s)
 
