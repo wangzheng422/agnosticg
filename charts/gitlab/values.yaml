@@ -14,7 +14,7 @@ gitlab:
     host: "ssh.gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com"
     port: "22"
   rootPassword: openshift
-  gitlabHost: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
+  host: gitlab-gitlab.apps.cluster-br9rv.br9rv.sandbox1083.opentlc.com
   https: "true"
   rootEmail: "treddy@redhat.com"
   keyBase:

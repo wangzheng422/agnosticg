@@ -10,7 +10,7 @@ data:
   GITLAB_EMAIL: {{ $.Values.gitlab.email.address }}
   GITLAB_EMAIL_DISPLAY_NAME: {{ $.Values.gitlab.email.displayName }}
   GITLAB_EMAIL_REPLY_TO: {{ $.Values.gitlab.email.replyTo }}
-  GITLAB_HOST: {{ $.Values.gitlab.gitlabHost }}
+  GITLAB_HOST: {{ $.Values.gitlab.host }}
   GITLAB_HTTPS: "{{ $.Values.gitlab.https }}"
   GITLAB_NOTIFY_ON_BROKEN_BUILDS: "true"
   GITLAB_NOTIFY_PUSHER: "false"
