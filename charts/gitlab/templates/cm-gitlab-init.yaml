@@ -100,7 +100,7 @@ data:
         - name: Create default user (admin for now)
           when: user_create
           ansible.builtin.uri:
-            url: https://your.form.based.auth.example.com/index.php
+            url: http://gitlab.gitlab.svc/api/v4/users
             method: POST
             body_format: form-urlencoded
             body:
