@@ -139,9 +139,10 @@ data:
           register: r_group
 
 {{- range $item1 := $item.repo }}
+
         - name: Add user to group
           ansible.builtin.uri:
-            url: https://{{ $.Values.gitlab.host }}/api/v4/groups/'{{ "{{" }} r_group.json.id {{ "}}" }}'/members
+            url: https://{{ $.Values.gitlab.host }}/api/v4/groups/{{ "{{" }} r_group.json.id {{ "}}" }}/members
             method: POST
             body_format: form-urlencoded
             body:
