@@ -121,7 +121,7 @@ data:
           ignore_errors: true
           register: r_user
 
-{{- range $item := .Values.namespaces }}
+{{- range $item := .Values.gitlab.namespaces }}
         - name: Create group
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/groups
