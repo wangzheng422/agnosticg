@@ -84,7 +84,7 @@ data:
 
         - name: Decode root token
           set_fact:
-            root_token: {{ "{{" }} r_token.resources[0].data.token | b64decode {{ "}}" }}
+            root_token: '{{ "{{" }} r_token.resources[0].data.token | b64decode {{ "}}" }}'
 
         - name: Create default user (admin for now)
           when: user_create
