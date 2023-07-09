@@ -1,8 +1,6 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
   name: redis-postgresql
   labels:
     app: gitlab
