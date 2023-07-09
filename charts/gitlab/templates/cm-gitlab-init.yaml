@@ -139,8 +139,6 @@ data:
           ignore_errors: true
           register: r_group
 
-{{- range $item1 := $item.repo }}
-
         - name: Add user to group
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/groups/{{ "{{" }} r_group.json.id {{ "}}" }}/members
@@ -154,6 +152,8 @@ data:
             validate_certs: false
             status_code: 201
           ignore_errors: true
+
+{{- range $item1 := $item.repo }}
 
         - name: Import repository to group
           ansible.builtin.uri:
