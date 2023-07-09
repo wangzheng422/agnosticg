@@ -8,7 +8,7 @@ data:
   generate-root-token.sh: |
     gitlab_host="http://gitlab.gitlab.svc"
     gitlab_user="root"
-    gitlab_password={{ $.gitlab.rootPassword }}
+    gitlab_password="openshift"
 
     # curl for the login page to get a session cookie and the sources with the auth tokens
     body_header=$(curl -c cookies.txt -i "${gitlab_host}/users/sign_in" -s)
@@ -40,13 +40,13 @@ data:
     - name: Configure GitLab
       hosts: localhost
       vars:
-        gitlab_namespace: {{ $.Release.Namespace }}
-        root_password: {{ $.gitlab.rootPassword }}
-        user_create: {{ $.gitlab.user.create }}
-        user_name: {{ $.gitlab.user.name }}
-        user_username: {{ $.gitlab.user.username }}
-        user_password: {{$.gitlab.user.password }}
-        user_email: {{ $.gitlab.user.email }}
+        gitlab_namespace: gitlab
+        root_password: openshift
+        user_create: true
+        user_name: Lab User
+        user_username: labuser
+        user_password: openshift
+        user_email: labuser@opentlc.com
       tasks:
         - name: Check GitLab Liveness
           ansible.builtin.uri:
