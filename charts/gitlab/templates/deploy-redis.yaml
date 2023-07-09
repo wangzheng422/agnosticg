@@ -4,16 +4,16 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   labels:
-    name: redis-postgresql
-  name: redis-postgresql
+    name: gitlab-redis
+  name: gitlab-redis
 spec:
   selector:
     matchLabels:
-      name: redis-postgresql
+      name: gitlab-redis
   template:
     metadata:
       labels:
-        name: redis-postgresql
+        name: gitlab-redis
     spec:
       containers:
       - image: redis:6.2.6
@@ -42,6 +42,6 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: redis-postgresql
+          claimName: gitlab-redis
       serviceAccount: gitlab
       serviceAccountName: gitlab
