@@ -89,6 +89,10 @@ data:
             namespace: '{{ "{{" }} gitlab_namespace {{ "}}" }}'
           register: r_root_token
 
+        - name:
+          debug:
+            var: r_root_token
+
         - name: Decode root token
           set_fact:
             root_token: '{{ "{{" }} r_root_token.resources[0].data.token | b64decode {{ "}}" }}'
