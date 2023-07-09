@@ -69,7 +69,7 @@ data:
 
         - name: Wait for GitLab second restart recovery
           pause:
-            minutes: 5
+            minutes: 3
 
         - name: Check GitLab Liveness (2)
           ansible.builtin.uri:
