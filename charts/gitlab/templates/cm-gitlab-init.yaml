@@ -66,9 +66,9 @@ data:
           delay: 10
           until: r_liveness.status == 200
 
-        # - name: Check that Gitlab is running
-        #   pause:
-        #     minutes: 5
+        - name: Check that Gitlab is running
+          pause:
+            minutes: 5
 
         - name: Check GitLab Liveness (2)
           ansible.builtin.uri:
