@@ -115,4 +115,4 @@ data:
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
             status_code: 201
-          ignore_erros: true
+          ignore_errors: true
