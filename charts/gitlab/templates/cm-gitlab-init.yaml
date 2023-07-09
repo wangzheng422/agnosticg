@@ -141,22 +141,13 @@ data:
 
 {{- range $item1 := $item.repo }}
 
-        - name: Debug 1
-          debug:
-            msg:  '{{ "{{" }} r_user {{ "}}" }} and {{ "{{" }} user_username {{ "}}" }}'
-
-        - name: Debug 2
-          debug:
-            msg:  '{{ "{{" }} r_user.json.id {{ "}}" }} and {{ "{{" }} user_username {{ "}}" }}'
-
         - name: Add user to group
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/groups/{{ "{{" }} r_group.json.id {{ "}}" }}/members
             method: POST
             body_format: form-urlencoded
             body:
-              id: '{{ "{{" }} r_user.json[0].id {{ "}}" }}'
-              user_id: '{{ "{{" }} user_username {{ "}}" }}'
+              user_id: '{{ "{{" }} r_user.json.id {{ "}}" }}'
               access_level: 50
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
