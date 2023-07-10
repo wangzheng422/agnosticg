@@ -85,7 +85,7 @@ data:
           shell: |
             sh /scripts/generate-root-token.sh
 
-        - name: Retrieve Gitea instance
+        - name: Retrieve root token
           kubernetes.core.k8s_info:
             api_version: v1
             kind: Secret
