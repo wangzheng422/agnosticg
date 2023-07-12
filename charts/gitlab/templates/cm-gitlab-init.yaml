@@ -44,7 +44,7 @@ data:
     # Scrape the personal access token from the response HTML
     personal_access_token=$(echo $body_header | perl -ne 'print "$1\n" if /created-personal-access-token"[[:blank:]]value="(.+?)"/' | sed -n 1p)
     oc create secret generic root-user-personal-token --from-literal=token=$personal_access_token -n {{ $.Release.Namespace }}
-  playblook.yaml: |
+  playbook.yaml: |
     ---
     - name: Configure GitLab
       hosts: localhost

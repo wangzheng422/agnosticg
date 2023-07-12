@@ -15,7 +15,7 @@ spec:
           - '-c'
           - |
             set -x
-            ansible-playbook -i localhost /scripts/playblook.yaml
+            ansible-playbook -i localhost /scripts/playbook.yaml
         image: quay.io/agnosticd/ee-multicloud:latest
         volumeMounts:
           - mountPath: /scripts
