@@ -114,7 +114,6 @@ data:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
             validate_certs: false
             status_code: 200
-          ignore_errors: true
 
         - name: Create default user (admin for now)
           when: user_create
