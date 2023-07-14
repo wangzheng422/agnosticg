@@ -22,7 +22,7 @@ spec:
             name: gitlab-cm
         - secretRef:
             name: gitlab-secret
-        image: sameersbn/gitlab:12.5.7
+        image: quay.io/redhat-gpte/gitlab:16.0.4
         imagePullPolicy: Always
         name: gitlab
         ports:
