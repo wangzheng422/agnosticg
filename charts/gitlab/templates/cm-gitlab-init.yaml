@@ -186,7 +186,7 @@ data:
           retries: 100
           delay: 5
           register: r_import
-          until: r_import.status == 200
+          until: r_import.status == 201
           loop:
 {{- range $item1 := $item.repo }}
             - name: {{ $item1.name }}
