@@ -101,6 +101,20 @@ data:
           set_fact:
             root_token: '{{ "{{" }} r_root_token.resources[0].data.token | b64decode {{ "}}" }}'
 
+        - name: Update application settings
+          when: user_create
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/application/settings
+            method: PUT
+            body_format: form-urlencoded
+            body:
+              import_sources: "git,github,gitea"
+            headers:
+              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
+            validate_certs: false
+            status_code: 200
+          ignore_errors: true
+
         - name: Create default user (admin for now)
           when: user_create
           ansible.builtin.uri:

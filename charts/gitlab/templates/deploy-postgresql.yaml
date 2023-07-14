@@ -25,7 +25,7 @@ spec:
           value: {{ $.Values.postgresql.dbName }}
         - name: DB_EXTENSION
           value: pg_trgm,btree_gist
-        image: sameersbn/postgresql:10
+        image: quay.io/redhat-gpte/gitlab-postgresql:14
         imagePullPolicy: Always
         livenessProbe:
           exec:
