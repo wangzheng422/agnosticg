@@ -19,22 +19,22 @@ data:
         exit 0
     fi
 
-    body_header=$(curl -c /tmp/cookies.txt -i "${gitlab_host}/users/sign_in" -s --insecure)
-    csrf_token=$(echo $body_header | perl -ne 'print "$1\n" if /new_user.*?authenticity_token"[[:blank:]]value="(.+?)"/' | sed -n 1p)
-    curl -L -b /tmp/cookies.txt -c /tmp/cookies.txt -i "${gitlab_host}/users/sign_in" \
-      --data-raw "user%5Blogin%5D=${gitlab_user}&user%5Bpassword%5D=${gitlab_password}" \
-      --data-urlencode "authenticity_token=${csrf_token}" \
-      --compressed \
-      --insecure 2>&1 > /dev/null
+body_header=$(curl -c /tmp/cookies.txt -i "${gitlab_host}/users/sign_in" -s --insecure)
+csrf_token=$(echo $body_header | perl -ne 'print "$1\n" if /new_user.*?authenticity_token"[[:blank:]]value="(.+?)"/' | sed -n 1p)
+curl -L -b /tmp/cookies.txt -c /tmp/cookies.txt -i "${gitlab_host}/users/sign_in" \
+  --data-raw "user%5Blogin%5D=${gitlab_user}&user%5Bpassword%5D=${gitlab_password}" \
+  --data-urlencode "authenticity_token=${csrf_token}" \
+  --compressed \
+  --insecure 2>&1 > /dev/null
 
-    body_header=$(curl -H 'user-agent: curl' -b /tmp/cookies.txt -i "${gitlab_host}/-/profile/personal_access_tokens" -s --insecure)
+body_header=$(curl -H 'user-agent: curl' -b /tmp/cookies.txt -i "${gitlab_host}/-/profile/personal_access_tokens" -s --insecure)
 
-    csrf_token=$(echo $body_header | perl -ne 'print "$1\n" if /csrf-token"[[:blank:]]content="(.+?)"/' | sed -n 1p)
-    body_header=$(curl -L -b /tmp/cookies.txt "${gitlab_host}/-/profile/personal_access_tokens" \
-        --data-urlencode "authenticity_token=${csrf_token}" \
-        --data 'personal_access_token[name]=golab-generated&personal_access_token[expires_at]=&personal_access_token[scopes][]=api' --insecure)
-    personal_access_token=$(echo $body_header | perl -ne 'print "$1\n" if /new_token":"(.+?)"/' | sed -n 1p)
-    echo $personal_access_token
+csrf_token=$(echo $body_header | perl -ne 'print "$1\n" if /csrf-token"[[:blank:]]content="(.+?)"/' | sed -n 1p)
+body_header=$(curl -L -b /tmp/cookies.txt "${gitlab_host}/-/profile/personal_access_tokens" \
+    --data-urlencode "authenticity_token=${csrf_token}" \
+    --data 'personal_access_token[name]=golab-generated&personal_access_token[expires_at]=&personal_access_token[scopes][]=api' --insecure)
+personal_access_token=$(echo $body_header | perl -ne 'print "$1\n" if /new_token":"(.+?)"/' | sed -n 1p)
+echo $personal_access_token
 
     oc create secret generic root-user-personal-token --from-literal=token=$personal_access_token -n {{ $.Release.Namespace }}
   playbook.yaml: |
@@ -161,7 +161,7 @@ data:
 
         - name: Import repository to group
           ansible.builtin.uri:
-            url: https://{{ $.Values.gitlab.host }}
+            url: https://{{ $.Values.gitlab.host }}/api/v4/projects
             method: POST
             body_format: form-urlencoded
             body:
