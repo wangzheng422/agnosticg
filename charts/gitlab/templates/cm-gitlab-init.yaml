@@ -164,6 +164,10 @@ data:
             status_code: 201
           ignore_errors: true
 
+        - name: Debugging project import
+          debug:
+            msg: name '{{ "{{" }} item.name {{ "}}" }}', import_url '{{ "{{" }} item.url {{ "}}" }}', group '{{ "{{" }} r_group.json.id {{ "}}" }}'
+
         - name: Import repository to group
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/projects
@@ -179,6 +183,10 @@ data:
             validate_certs: false
             status_code: 201
           ignore_errors: true
+          retries: 100
+          delay: 5
+          register: r_import
+          until: r_import.status == 200
           loop:
 {{- range $item1 := $item.repo }}
             - name: {{ $item1.name }}
