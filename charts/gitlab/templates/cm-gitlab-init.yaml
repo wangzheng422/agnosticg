@@ -166,7 +166,7 @@ data:
 
         - name: Debugging project import
           debug:
-            msg: name '{{ "{{" }} item.name {{ "}}" }}', import_url '{{ "{{" }} item.url {{ "}}" }}', group '{{ "{{" }} r_group.json.id {{ "}}" }}'
+            msg: group '{{ "{{" }} r_group.json.id {{ "}}" }}'
 
         - name: Import repository to group
           ansible.builtin.uri:
