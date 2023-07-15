@@ -12,12 +12,7 @@ data:
     gitlab_user="root"
     gitlab_password="{{ $.Values.gitlab.rootPassword }}"
 
-    oc get secret root-user-personal-token -n gitlab
-    RESULT=$?
-    if [ $RESULT -eq 0 ];
-    then
-        exit 0
-    fi
+    oc delete secret root-user-personal-token -n gitlab
 
     body_header=$(curl -c /tmp/cookies.txt -i "${gitlab_host}/users/sign_in" -s --insecure)
 
@@ -90,6 +85,7 @@ data:
             name: root-user-personal-token
             namespace: '{{ "{{" }} gitlab_namespace {{ "}}" }}'
           register: r_root_token
+          failed_when: r_root_token.resources[0].data.token | length == 0
 
         - name:
           debug:
