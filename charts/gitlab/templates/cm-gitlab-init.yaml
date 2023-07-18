@@ -2,7 +2,7 @@ kind: ConfigMap
 metadata:
   name:  cm-init-gitlab
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "2"
 apiVersion: v1
 data:
   generate-root-token.sh: |
