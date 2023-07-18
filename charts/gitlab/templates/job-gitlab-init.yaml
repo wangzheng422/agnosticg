@@ -3,7 +3,7 @@ kind: Job
 metadata:
   name: initialize-gitlab
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   backoffLimit: 100
   template:
