@@ -44,7 +44,7 @@ spec:
         resources:
           requests:
             cpu: "2"
-            memory: 2Gi
+            memory: 4Gi
         readinessProbe:
           exec:
             command:
