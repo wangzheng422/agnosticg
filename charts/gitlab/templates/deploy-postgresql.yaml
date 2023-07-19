@@ -41,6 +41,10 @@ spec:
         ports:
         - containerPort: 5432
           name: postgres
+        resources:
+          requests:
+            cpu: "2"
+            memory: 4Gi
         readinessProbe:
           exec:
             command:

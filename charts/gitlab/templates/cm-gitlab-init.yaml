@@ -62,9 +62,16 @@ data:
           delay: 10
           until: r_liveness.status == 200
 
-        - name: Wait for GitLab second restart recovery
-          pause:
-            minutes: 3
+        - name: Check GitLab Downtime
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/projects
+            method: GET
+            validate_certs: false
+            status_code: 502
+          register: r_downtime
+          retries: 60
+          delay: 10
+          until: r_downtime.status == 502
 
         - name: Check GitLab Liveness (2)
           ansible.builtin.uri:
