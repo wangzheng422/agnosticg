@@ -33,12 +33,9 @@ spec:
           name: http
           protocol: TCP
         resources:
-          limits:
-            cpu: "2"
-            memory: 4Gi
           requests:
-            cpu: 500m
-            memory: 1Gi
+            cpu: "2"
+            memory: 2Gi
         securityContext:
           privileged: true
         volumeMounts:
