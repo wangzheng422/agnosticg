@@ -66,6 +66,10 @@ data:
           delay: 10
           until: r_liveness.status == 200
 
+        - name: Generate root user personal token
+          shell: |
+            sh /scripts/generate-root-token.sh
+
         - name: Retrieve root token
           kubernetes.core.k8s_info:
             api_version: v1
