@@ -72,7 +72,7 @@ spec:
             secretKeyRef:
               key: password
               name: sonar-ldap-bind-dn
-        image: docker.io/kenmoini/openshift-sonarqube
+        image: {{ $.Values.sonarqube.image }}
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
