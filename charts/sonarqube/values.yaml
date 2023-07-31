@@ -1,6 +1,6 @@
 #Sonarqube Chart Values
 
 sonarqube:
-  image: docker.io/kenmoini/openshift-sonarqube
+  image: quay.io/redhat-gpte/sonarqube:7.7
   adminPassword: admin
   namespace: sonarqube
