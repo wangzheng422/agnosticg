@@ -106,7 +106,7 @@ data:
               skip_confirmation: true
               username: user{{ "{{" }} item {{ "}}" }}
               password: {{ $.Values.gitlab.users.password }}
-              name: GL User{{ "{{" }} item {{ "}}" }}
+              name: User{{ "{{" }} item {{ "}}" }} GitLab
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
             validate_certs: false
