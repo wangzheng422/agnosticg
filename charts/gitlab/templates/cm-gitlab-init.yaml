@@ -179,6 +179,7 @@ data:
 {{- end }}
 
         - name: Add user to group
+          when: item.username.startswith('user')
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/groups/{{ "{{" }} r_group.json.id {{ "}}" }}/members
             method: POST
