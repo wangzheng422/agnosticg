@@ -139,7 +139,7 @@ data:
             validate_certs: false
             status_code: 201
           register: r_group
-          retries: 2
+          retries: 100
           delay: 5
           until: r_group.status == 201
 
