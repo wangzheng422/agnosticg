@@ -99,19 +99,19 @@ data:
             validate_certs: false
             status_code: 200
 
+{{- range $users := .Values.gitlab.users }}
         - name: Create default user (admin for now)
-          when: user_create
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/users
             method: POST
             body_format: form-urlencoded
             body:
-              admin: true
-              email: '{{ "{{" }} user_email {{ "}}" }}'
+              admin: false
+              email: dev-user{{ "{{" }} item {{ "}}" }}@opentlc.com
               skip_confirmation: true
-              username: '{{ "{{" }} user_username {{ "}}" }}'
-              password: '{{ "{{" }} user_password {{ "}}" }}'
-              name: '{{ "{{" }} user_name {{ "}}" }}'
+              username: dev-user{{ "{{" }} item {{ "}}" }}
+              password: {{ $users.password }}
+              name: Dev User{{ "{{" }} item {{ "}}" }}
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
             validate_certs: false
@@ -120,6 +120,8 @@ data:
           retries: 100
           delay: 5
           until: r_user.status == 201
+          loop: '{{ "{{" }} range(1, $users.count) | list {{ "}}" }}'
+{{- end }}
 
 {{- range $item := .Values.gitlab.groups }}
 

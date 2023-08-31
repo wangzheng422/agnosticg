@@ -21,12 +21,10 @@ gitlab:
     db: "0123456789"
     otp: "0123456789"
     secret: "0123456789"
-  user:
-    create: true
-    name: Lab User
-    username: labuser
+  users:
+  - type: developer
     password: openshift
-    email: treddy@opentlc.com
+    count: 1
   groups: []
   # groups:
   # - name: backstage
