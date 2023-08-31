@@ -100,7 +100,7 @@ data:
             status_code: 200
 
 {{- range $users := .Values.gitlab.users }}
-        - name: Create default user (admin for now)
+        - name: Create user dev-user{{ "{{" }} item {{ "}}" }}
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/users
             method: POST
@@ -139,7 +139,7 @@ data:
             validate_certs: false
             status_code: 201
           register: r_group
-          retries: 100
+          retries: 2
           delay: 5
           until: r_group.status == 201
 
