@@ -52,23 +52,23 @@ data:
         user_password: {{ $.Values.gitlab.user.password }}
         user_email: {{ $.Values.gitlab.user.email }}
       tasks:
-        # - name: Pause for 5 minutes waiting for GitLab
-        #   ansible.builtin.pause:
-        #     minutes: 5
+        - name: Pause for 5 minutes waiting for GitLab
+          ansible.builtin.pause:
+            minutes: 5
 
-        # - name: Check GitLab Liveness
-        #   ansible.builtin.uri:
-        #     url: https://{{ $.Values.gitlab.host }}/api/v4/projects
-        #     method: GET
-        #     validate_certs: false
-        #   register: r_liveness
-        #   retries: 60
-        #   delay: 10
-        #   until: r_liveness.status == 200
+        - name: Check GitLab Liveness
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/projects
+            method: GET
+            validate_certs: false
+          register: r_liveness
+          retries: 60
+          delay: 10
+          until: r_liveness.status == 200
 
-        # - name: Generate root user personal token
-        #   shell: |
-        #     sh /scripts/generate-root-token.sh
+        - name: Generate root user personal token
+          shell: |
+            sh /scripts/generate-root-token.sh
 
         - name: Retrieve root token
           kubernetes.core.k8s_info:
@@ -192,7 +192,7 @@ data:
             validate_certs: false
             status_code: 201
           register: r_group_user
-          retries: 2
+          retries: 100
           delay: 5
           until: r_group_user.status == 201
           loop: '{{ "{{" }} r_users.json {{ "}}" }}'
