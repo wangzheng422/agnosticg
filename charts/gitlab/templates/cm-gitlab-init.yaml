@@ -120,7 +120,7 @@ data:
           retries: 100
           delay: 5
           until: r_user.status == 201
-          loop: '{{ "{{" }} range(1, $users.count) | list {{ "}}" }}'
+          loop: '{{ "{{" }} range(1, {{ $users.count }}) | list {{ "}}" }}'
 {{- end }}
 
 {{- range $item := .Values.gitlab.groups }}
