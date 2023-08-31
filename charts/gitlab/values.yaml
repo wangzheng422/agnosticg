@@ -24,7 +24,7 @@ gitlab:
   users:
   - type: developer
     password: openshift
-    count: 1
+    count: 2
   groups: []
   # groups:
   # - name: backstage
