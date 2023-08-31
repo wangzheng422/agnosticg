@@ -22,7 +22,6 @@ gitlab:
     otp: "0123456789"
     secret: "0123456789"
   users:
-  - type: developer
     password: openshift
     count: 2
   groups: []

@@ -99,8 +99,6 @@ data:
             validate_certs: false
             status_code: 200
 
-{{- range $users := .Values.gitlab.users }}
-
         - name: Create users
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/users
@@ -111,7 +109,7 @@ data:
               email: user{{ "{{" }} item {{ "}}" }}@opentlc.com
               skip_confirmation: true
               username: user{{ "{{" }} item {{ "}}" }}
-              password: {{ $users.password }}
+              password: {{ $.Values.gitlab.users.password }}
               name: GL User{{ "{{" }} item {{ "}}" }}
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
@@ -121,8 +119,7 @@ data:
           retries: 100
           delay: 5
           until: r_user.status == 201
-          loop: '{{ "{{" }} range(1, {{ $users.count }} + 1) | list {{ "}}" }}'
-{{- end }}
+          loop: '{{ "{{" }} range(1, {{ $.Values.gitlab.users.count }} + 1) | list {{ "}}" }}'
 
         - name: List users
           ansible.builtin.uri:
