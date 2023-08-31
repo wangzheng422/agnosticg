@@ -100,7 +100,7 @@ data:
             status_code: 200
 
 {{- range $users := .Values.gitlab.users }}
-        - name: Create user dev-user{{ "{{" }} item {{ "}}" }}
+        - name: Create users
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/users
             method: POST
