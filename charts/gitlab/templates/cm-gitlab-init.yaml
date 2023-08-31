@@ -191,7 +191,7 @@ data:
             validate_certs: false
             status_code: 201
           register: r_group_user
-          retries: 100
+          retries: 2
           delay: 5
           until: r_group_user.status == 201
           loop: '{{ "{{" }} r_users.json {{ "}}" }}'
