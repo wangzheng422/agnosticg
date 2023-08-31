@@ -100,6 +100,7 @@ data:
             status_code: 200
 
 {{- range $users := .Values.gitlab.users }}
+
         - name: Create users
           ansible.builtin.uri:
             url: https://{{ $.Values.gitlab.host }}/api/v4/users
@@ -107,11 +108,11 @@ data:
             body_format: form-urlencoded
             body:
               admin: false
-              email: dev-user{{ "{{" }} item {{ "}}" }}@opentlc.com
+              email: user{{ "{{" }} item {{ "}}" }}@opentlc.com
               skip_confirmation: true
-              username: dev-user{{ "{{" }} item {{ "}}" }}
+              username: user{{ "{{" }} item {{ "}}" }}
               password: {{ $users.password }}
-              name: Dev User{{ "{{" }} item {{ "}}" }}
+              name: GL User{{ "{{" }} item {{ "}}" }}
             headers:
               PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
             validate_certs: false
@@ -122,6 +123,16 @@ data:
           until: r_user.status == 201
           loop: '{{ "{{" }} range(1, {{ $users.count }} + 1) | list {{ "}}" }}'
 {{- end }}
+
+        - name: List users
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/users
+            method: GET
+            headers:
+              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
+            validate_certs: false
+            status_code: 200
+          register: r_users
 
 {{- range $item := .Values.gitlab.groups }}
 
@@ -142,27 +153,6 @@ data:
           retries: 100
           delay: 5
           until: r_group.status == 201
-
-        - name: Add user to group
-          ansible.builtin.uri:
-            url: https://{{ $.Values.gitlab.host }}/api/v4/groups/{{ "{{" }} r_group.json.id {{ "}}" }}/members
-            method: POST
-            body_format: form-urlencoded
-            body:
-              user_id: '{{ "{{" }} r_user.json.id {{ "}}" }}'
-              access_level: 50
-            headers:
-              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
-            validate_certs: false
-            status_code: 201
-          register: r_group_user
-          retries: 100
-          delay: 5
-          until: r_group_user.status == 201
-
-        - name: Debugging project import
-          debug:
-            msg: group '{{ "{{" }} r_group.json.id {{ "}}" }}'
 
         - name: Import repository to group
           ansible.builtin.uri:
@@ -187,4 +177,22 @@ data:
             - name: {{ $item1.name }}
               url: {{ $item1.url }}
 {{- end }}
+
+        - name: Add user to group
+          ansible.builtin.uri:
+            url: https://{{ $.Values.gitlab.host }}/api/v4/groups/{{ "{{" }} r_group.json.id {{ "}}" }}/members
+            method: POST
+            body_format: form-urlencoded
+            body:
+              user_id: '{{ "{{" }} item.id {{ "}}" }}'
+              access_level: 50
+            headers:
+              PRIVATE-TOKEN: '{{ "{{" }} root_token {{ "}}" }}'
+            validate_certs: false
+            status_code: 201
+          register: r_group_user
+          retries: 100
+          delay: 5
+          until: r_group_user.status == 201
+          loop: '{{ "{{" }} r_users.json {{ "}}" }}'
 {{- end }}
