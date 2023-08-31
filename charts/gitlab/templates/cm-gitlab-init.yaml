@@ -47,10 +47,6 @@ data:
         gitlab_namespace: {{ $.Release.Namespace }}
         root_password: {{ $.Values.gitlab.rootPassword }}
         user_create: true
-        user_name: {{ $.Values.gitlab.user.name }}
-        user_username: {{ $.Values.gitlab.user.username }}
-        user_password: {{ $.Values.gitlab.user.password }}
-        user_email: {{ $.Values.gitlab.user.email }}
       tasks:
         - name: Pause for 5 minutes waiting for GitLab
           ansible.builtin.pause:
