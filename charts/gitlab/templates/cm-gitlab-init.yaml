@@ -103,6 +103,7 @@ data:
             body:
               admin: false
               email: user{{ "{{" }} item {{ "}}" }}@opentlc.com
+              public_email: user{{ "{{" }} item {{ "}}" }}@opentlc.com
               skip_confirmation: true
               username: user{{ "{{" }} item {{ "}}" }}
               password: {{ $.Values.gitlab.users.password }}
