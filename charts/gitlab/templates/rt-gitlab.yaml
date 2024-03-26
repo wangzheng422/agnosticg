@@ -11,6 +11,7 @@ spec:
     targetPort: http
   tls:
     termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   to:
     kind: Service
     name: gitlab
