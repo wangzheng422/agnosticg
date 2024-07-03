@@ -12,6 +12,9 @@ spec:
       app: sonarqube
       deploymentconfig: sonarqube
   strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
     type: Recreate
   template:
     metadata:
@@ -19,6 +22,16 @@ spec:
         app: sonarqube
         deploymentconfig: sonarqube
     spec:
+      initContainers:
+      - name: take-data-dir-ownership
+        image: ubi8/ubi-minimal
+        command: ["/bin/sh", "-c"]
+        args:
+          - mkdir -p /opt/sonarqube/data;
+            chmod -R 777 /opt/sonarqube/data;
+        volumeMounts:
+        - name: sonar-data
+          mountPath: /opt/sonarqube/data
       containers:
       - env:
         - name: JDBC_URL
@@ -67,7 +80,7 @@ spec:
           value: "true"
         - name: LDAP_BINDDN
         - name: LDAP_BINDPASSWD
-        image: {{ $.Values.sonarqube.image }}
+        image: {{ .Values.sonarqube.image }}
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
