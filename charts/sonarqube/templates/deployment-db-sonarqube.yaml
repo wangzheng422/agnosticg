@@ -28,7 +28,7 @@ spec:
             mountPath: /var/lib/pgsql/data
         image: ubi8/ubi-minimal
         args:
-          - mkdir -p /var/lib/pgsql/data; chmod -R 777 /var/lib/pgsql/data;
+          - mkdir -p /var/lib/pgsql/data; chmod -R 775 /var/lib/pgsql/data;
       containers:
       - env:
         - name: POSTGRESQL_USER
