@@ -12,9 +12,6 @@ spec:
     matchLabels:
       name: sonardb
   strategy:
-    activeDeadlineSeconds: 21600
-    recreateParams:
-      timeoutSeconds: 600
     type: Recreate
   template:
     metadata:
