@@ -12,12 +12,26 @@ spec:
     matchLabels:
       name: sonardb
   strategy:
+    activeDeadlineSeconds: 21600
+    recreateParams:
+      timeoutSeconds: 600
     type: Recreate
   template:
     metadata:
       labels:
         name: sonardb
     spec:
+      initContainers:
+      - name: take-data-dir-ownership
+        command:
+          - /bin/sh
+          - '-c'
+        volumeMounts:
+          - name: sonardb-data
+            mountPath: /var/lib/pgsql/data
+        image: ubi8/ubi-minimal
+        args:
+          - mkdir -p /var/lib/pgsql/data; chmod -R 777 /var/lib/pgsql/data;
       containers:
       - env:
         - name: POSTGRESQL_USER
@@ -69,7 +83,7 @@ spec:
           requests:
             memory: 1Gi
         securityContext:
-          privileged: true
+          privileged: false
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
