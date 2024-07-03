@@ -19,9 +19,21 @@ spec:
         app: sonarqube
         deploymentconfig: sonarqube
     spec:
+      initContainers:
+      - name: take-data-dir-ownership
+        image: ubi8/ubi-minimal
+        command: ["/bin/sh", "-c"]
+        args:
+          - mkdir -p /opt/sonarqube/data;
+            chmod -R 775 /opt/sonarqube/data;
+        volumeMounts:
+        - name: sonar-data
+          mountPath: /opt/sonarqube/data
       containers:
       - env:
         - name: JDBC_URL
+          value: jdbc:postgresql://sonardb:5432/sonar
+        - name: SONAR_JDBC_URL
           value: jdbc:postgresql://sonardb:5432/sonar
         - name: JDBC_USERNAME
           valueFrom:
@@ -33,46 +45,39 @@ spec:
             secretKeyRef:
               key: database-password
               name: sonardb
+        - name: SONAR_JDBC_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: sonardb
+        - name: SONAR_JDBC_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: sonardb
         - name: FORCE_AUTHENTICATION
           value: "false"
         - name: PROXY_HOST
         - name: PROXY_PORT
         - name: PROXY_USER
         - name: PROXY_PASSWORD
+        - name: SONAR_SECURITY_REALM
         - name: LDAP_URL
-          value: ldaps://idm.example.com:636
         - name: LDAP_REALM
         - name: LDAP_AUTHENTICATION
-          value: simple
         - name: LDAP_USER_BASEDN
-          value: cn=accounts,dc=example,dc=com
         - name: LDAP_USER_REAL_NAME_ATTR
-          value: displayname
         - name: LDAP_USER_EMAIL_ATTR
-          value: mail
         - name: LDAP_USER_REQUEST
-          value: (&(objectClass=inetOrgPerson)(uid={login}))
         - name: LDAP_GROUP_BASEDN
-          value: cn=groups,cn=accounts,dc=example,dc=com
         - name: LDAP_GROUP_REQUEST
-          value: (&(objectClass=groupOfUniqueNames)(uniqueMember={dn}))
         - name: LDAP_GROUP_ID_ATTR
-          value: cn
         - name: LDAP_CONTEXTFACTORY
-          value: com.sun.jndi.ldap.LdapCtxFactory
         - name: SONAR_AUTOCREATE_USERS
           value: "true"
         - name: LDAP_BINDDN
-          valueFrom:
-            secretKeyRef:
-              key: username
-              name: sonar-ldap-bind-dn
         - name: LDAP_BINDPASSWD
-          valueFrom:
-            secretKeyRef:
-              key: password
-              name: sonar-ldap-bind-dn
-        image: {{ $.Values.sonarqube.image }}
+        image: {{ .Values.sonarqube.image }}
         imagePullPolicy: Always
         livenessProbe:
           failureThreshold: 3
@@ -99,14 +104,9 @@ spec:
           successThreshold: 1
           timeoutSeconds: 1
         resources:
-          limits:
-            cpu: "2"
-            memory: 2Gi
           requests:
             cpu: 200m
             memory: 1Gi
-        securityContext:
-          privileged: true
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
