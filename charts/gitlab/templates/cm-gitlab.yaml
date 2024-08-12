@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   DB_ADAPTER: postgresql
-  DB_HOST: gitlab-postgresql.gitlab.svc
+  DB_HOST: gitlab-postgresql.{{ $.Release.Namespace }}.svc
   DB_NAME: {{ $.Values.postgresql.dbName }}
   DB_PORT: "5432"
   DB_USER: {{ $.Values.postgresql.dbUser }}
@@ -21,7 +21,7 @@ data:
   GITLAB_SSH_PORT: "{{ $.Values.gitlab.ssh.port }}"
   GITLAB_TIMEZONE: Berlin
   NGINX_MAX_UPLOAD_SIZE: 100m
-  REDIS_HOST: gitlab-redis.gitlab.svc
+  REDIS_HOST: gitlab-redis.{{ $.Release.Namespace }}.svc
   REDIS_PORT: "6379"
   SMTP_AUTHENTICATION: login
   SMTP_DOMAIN: {{ $.Values.gitlab.smtp.domain }}
