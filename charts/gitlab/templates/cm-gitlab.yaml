@@ -30,7 +30,7 @@ data:
   SMTP_PORT: "{{ $.Values.gitlab.smtp.port }}"
   SMTP_STARTTLS: "true"
   SMTP_USER: {{ $.Values.gitlab.smtp.user }}
-  TZ: Asia/Shanghai
+  TZ: Europe/Berlin
 kind: ConfigMap
 metadata:
   labels:
